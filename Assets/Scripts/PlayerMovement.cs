@@ -4,28 +4,41 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 6.0F;
-    public float gravity = 20.0F;
-    public float rotateSpeed = 10000f;
+    
 
     public bool sliding = false;
     public bool slide = false;
 
-    public AngleConverter angleConv;
+    
     private Vector3 moveDirection = Vector3.zero;
-    public CharacterController controller;
+
+    public float speed = 6.0F;
+    public float gravity = 20.0F;
+    public float rotateSpeed = 10000f;
 
     [SerializeField]
-    private float radCheck = 0.1f;
+    private float ofsetGroundGizmoY = 0.1f;
     [SerializeField]
-    private float ofsetGizmo = 0.1f;
+    private float radWall = 0.1f;
+    [SerializeField]
+    private float ofsetWallGizmoY = 0.1f;
+    
     [SerializeField]
     private string layer;
+    public AngleConverter angleConv;
+    public CharacterController controller;
+    [SerializeField]
+    private Vector3 radGround = new Vector3(1, 1, 1);
 
     void Start()
     {
         angleConv = GetComponent<AngleConverter>();
         controller = GetComponent<CharacterController>();
+
+        //Vector3 pos = new Vector3(transform.position.x - ofsetGizmoX, transform.position.y - ofsetGizmoY, transform.position.z - ofsetGizmoZ);
+        //go= new GameObject("Collider");
+        //go.transform.parent = transform;
+        //go.transform.localPosition = pos;
     }
 
     void Update()
@@ -35,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
             moveDirection = Vector3.zero;
         }
 
-            UpdateKeyRotation();
+        UpdateKeyRotation();
         if (!IsOnSlab())
         {
             moveDirection = Vector3.forward;
@@ -49,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateKeyRotation()
     {
-        if (IsOnSlab())
+        if (FoundWall() || IsOnSlab())
         {
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
@@ -68,22 +81,44 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+    internal bool FoundWall()
+    {
+
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y - ofsetWallGizmoY, transform.position.z);
+        pos = pos + (transform.forward / 2);
+
+        Collider[] col = Physics.OverlapSphere(pos, radWall, LayerMask.GetMask(layer));
+
+        return (col.Length > 0 && col != null);
+
+    }
+
     internal bool IsOnSlab()
     {
 
-        Vector3 pos = new Vector3(transform.position.x, transform.position.y - ofsetGizmo, transform.position.z);
-        Collider[] col = Physics.OverlapSphere(pos, radCheck, LayerMask.GetMask(layer));
+        Vector3 posGrnd = new Vector3(transform.position.x, transform.position.y - ofsetGroundGizmoY, transform.position.z);
 
-        return (col.Length > 0 && col != null);
+
+        Collider[] colGrnd = Physics.OverlapBox(posGrnd, radGround,Quaternion.LookRotation(Vector3.forward,Vector3.up), LayerMask.GetMask(layer));
+
+
+
+        return (colGrnd.Length > 0 && colGrnd != null);
 
     }
 
 
     private void OnDrawGizmosSelected()
     {
-        Vector3 pos = new Vector3(transform.position.x, transform.position.y - ofsetGizmo, transform.position.z);
+        Vector3 posGrng = new Vector3(transform.position.x, transform.position.y - ofsetGroundGizmoY, transform.position.z);
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y - ofsetWallGizmoY, transform.position.z);
+        pos = pos + transform.forward;
+
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(pos, radCheck);
+        Gizmos.DrawSphere(pos, radWall);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(posGrng, radGround);
     }
 
 }
