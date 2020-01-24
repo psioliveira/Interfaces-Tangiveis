@@ -10,12 +10,12 @@ public class Respawn : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("step1");
+        //Debug.Log("step1");
         if(col.tag == "Player")
         {
             Destroy(col.gameObject);
             Instantiate(player);
-            Debug.Log("step2");
+            //Debug.Log("step2");
         }
 
         

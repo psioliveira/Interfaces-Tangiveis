@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: d0b4088eae6a2dc48adb681985f98962
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - startPrefab: {instanceID: 0}
+  - endPrefab: {instanceID: 0}
+  - inbetweenPrefab: {instanceID: 0}
+  - Empty: {fileID: 21300000, guid: 358dd46cf9273a641a2605cbdd1846dc, type: 3}
+  - QEnd: {fileID: 21300000, guid: cf83fb6160d32024ea1cb0ca4b184649, type: 3}
+  - QStart: {fileID: 21300000, guid: 926f1f7a6fa2a234d9beadb445aa1d5f, type: 3}
+  - Start: {fileID: 21300000, guid: 2d58a165d1a0dae4fad5f5715d3b5279, type: 3}
+  - Neutral: {fileID: 21300000, guid: 4cc81752f3c69ee41a623dc8441ccbea, type: 3}
+  - Q1: {fileID: 21300000, guid: 11f5ff55c6fb4e441b00105e8ebf75a2, type: 3}
+  - Q_neutral: {fileID: 21300000, guid: d47f753e30a15754988a3f1a781a3ef5, type: 3}
+  - Q_Med: {fileID: 21300000, guid: 0b3de59a557aff44eae82453577fc0e6, type: 3}
+  - Q3: {fileID: 21300000, guid: 0817c6518faa5e74db51d19c5fa17919, type: 3}
+  - End: {fileID: 21300000, guid: 755af573b81a667459b8e8da73c9d7f3, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

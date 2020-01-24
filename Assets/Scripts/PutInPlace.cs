@@ -5,6 +5,7 @@ using UnityEngine;
 public class PutInPlace : MonoBehaviour
 {
     public GameObject inPlace;
+    public BookQueue queue;
 
 
     void OnTriggerEnter(Collider col)
@@ -12,6 +13,7 @@ public class PutInPlace : MonoBehaviour
         if(col.tag == "Player")
         {
             this.gameObject.SetActive(false);
+            queue.BookAdd();
             inPlace.SetActive(true);
         }
     }
