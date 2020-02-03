@@ -1,5 +1,5 @@
 {
-    "name": "PlayerControl",
+    "name": "PlayerControler",
     "maps": [
         {
             "name": "PlayerControl",
@@ -68,8 +68,52 @@
                 },
                 {
                     "name": "",
+                    "id": "53b9bd73-2b7c-4763-be6b-29af349c6a99",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "north",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bbd2ec1a-f967-4aa7-ac64-163da417f257",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "north",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5f8cb348-74f5-4167-90ea-79c138ec54e1",
                     "path": "<HID::Arduino LLC Arduino Leonardo>/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "south",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0928b659-3152-4f05-b611-ac9ed7ebad9d",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "south",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9794b5d8-e2f3-40cc-bb02-a9f33e6190b6",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -90,8 +134,52 @@
                 },
                 {
                     "name": "",
+                    "id": "d3717f85-022e-4335-90f5-9aa7e0c22701",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "west",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2dff5989-60fa-48a1-aafd-609f0d74b9ce",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "west",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "42e37cef-68b8-4ead-a4c9-a71f1af1bdea",
                     "path": "<HID::Arduino LLC Arduino Leonardo>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "east",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "72819196-26c8-4939-9b05-e5cd6632e7db",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "east",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b14a8b6-9a01-4ea0-bfeb-ba32a889a83a",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -112,8 +200,52 @@
                 },
                 {
                     "name": "",
+                    "id": "824bbaaf-cfd4-44a1-acf2-7ec7d4b0e746",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f8b7fcd7-6c54-4ce7-b5a5-c5cce732a4cc",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "75bb9b44-a416-4917-9903-c9ca78722cff",
                     "path": "<HID::Arduino LLC Arduino Leonardo>/button6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "decline",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c1d8342-76c5-4f22-a217-3b254171a277",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "decline",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a68c468a-cf82-45ae-b198-e62a72a4bf43",
+                    "path": "<Keyboard>/delete",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
