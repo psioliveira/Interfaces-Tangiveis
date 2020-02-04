@@ -12,6 +12,7 @@ TagManager:
   - RightAnswer
   - floor
   - safe
+  - Level_Spawner
   layers:
   - Default
   - TransparentFX

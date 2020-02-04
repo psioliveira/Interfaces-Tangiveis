@@ -37,7 +37,7 @@ public class Question_Creator : MonoBehaviour
 
     internal void CreateQuestion(Graph_Values graphToCreate)
     {
-        GraphCreator.GetComponent<Graph_Manager>().CreateGraph(graphToCreate);
+        //GraphCreator.GetComponent<Graph_Manager>().CreateGraph(graphToCreate);
 
         question.text = graphToCreate.Question;
 

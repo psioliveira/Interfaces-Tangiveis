@@ -142,6 +142,7 @@ public class UI_Input_Manager : MonoBehaviour
 
         if(currentNumber > questionList.Count)
         currentNumber = 0;
+
         scrollView.UpdateData(cellData);
         lowestValue = questionList[currentNumber].lowestValue;
         lowestValueText.text = questionList[currentNumber].lowestValue.ToString();
@@ -295,7 +296,7 @@ public class UI_Input_Manager : MonoBehaviour
         correctAnswer = questionList[currentNumber].correctAnswer;
         correctAnswerText.value = questionList[currentNumber].correctAnswer;
 
-        currentGraphManager.CreateGraph(questionList[currentNumber]);
+        //currentGraphManager.CreateGraph(questionList[currentNumber]);
     }
 
 
