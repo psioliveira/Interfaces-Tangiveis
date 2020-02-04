@@ -27,9 +27,13 @@ public class PlayerMovement : MonoBehaviour
     private string layer;
     public AngleConverter angleConv;
     public CharacterController controller;
-    [SerializeField]
-    private Vector3 radGround = new Vector3(1, 1, 1);
     private Vector2 axis;
+    [SerializeField]
+    private float ofsetFloorGizmoY;
+    [SerializeField]
+    private float ofsetFloorGizmoX;
+    [SerializeField]
+    private float radFloor;
 
     void Start()
     {
@@ -41,13 +45,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (FoundWall())
+        if (FoundWall() || FoundFloor())
         {
             moveDirection = Vector3.zero;
         }
 
         UpdateKeyRotation();
-        if (!FoundWall())
+        if (!FoundWall() && !FoundFloor())
         {
             moveDirection = Vector3.forward;
             moveDirection = transform.TransformDirection(moveDirection);
@@ -60,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateKeyRotation()
     {
-        if (FoundWall())
+        if (FoundWall() || FoundFloor())
         {
             if (axis == Vector2.up || axis == Vector2.down)
             {
@@ -84,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        axis = Vector2.zero;
+        //axis = Vector2.zero;
     }
 
     private void OnWest()
@@ -104,6 +108,11 @@ public class PlayerMovement : MonoBehaviour
     private void OnSouth()
     {
         axis = Vector2.left;
+    }
+
+    private void OnMoveReleased()
+    {
+        axis = Vector2.zero;
     }
 
     private bool OnDecline()
@@ -130,15 +139,32 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    internal bool FoundFloor()
+    {
 
+        Vector3 pos2 = new Vector3(transform.position.x, transform.position.y - ofsetFloorGizmoY, transform.position.z);
+        pos2 = pos2 + (ofsetFloorGizmoX * transform.forward / 2);
+
+        Collider[] col = Physics.OverlapSphere(pos2, radFloor, LayerMask.GetMask(layer));
+
+        return (col.Length > 0 && col != null);
+
+    }
 
     private void OnDrawGizmosSelected()
     {
         Vector3 pos = new Vector3(transform.position.x, transform.position.y - ofsetWallGizmoY, transform.position.z);
         pos = pos + (ofsetWallGizmoX * transform.forward / 2);
 
+        Vector3 pos2 = new Vector3(transform.position.x, transform.position.y - ofsetFloorGizmoY, transform.position.z);
+        pos2 = pos2 + (ofsetFloorGizmoX * transform.forward / 2);
+
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(pos, radWall);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(pos2, radFloor);
+
     }
 
 }
