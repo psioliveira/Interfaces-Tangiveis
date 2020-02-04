@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     [SerializeField]
     private Vector3 radGround = new Vector3(1, 1, 1);
+    private Vector2 axis;
 
     void Start()
     {
@@ -61,9 +62,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (FoundWall())
         {
-            if (Input.GetAxis("Vertical") != 0)
+            if (axis == Vector2.up || axis == Vector2.down)
             {
-                Vector2 axis = new Vector2(Input.GetAxis("Vertical"), 0);
                 float angle = Mathf.Round(angleConv.AngleTranslate(axis));
 
                 Quaternion temp = Quaternion.Euler(0, angle, 0);
@@ -72,9 +72,8 @@ public class PlayerMovement : MonoBehaviour
                 moveDirection = transform.TransformDirection(moveDirection);
                 moveDirection *= speed;
             }
-            else if (Input.GetAxis("Horizontal") != 0)
+            else if (axis == Vector2.left || axis == Vector2.right)
             {
-                Vector2 axis = new Vector2(0, Input.GetAxis("Horizontal"));
                 float angle = Mathf.Round(angleConv.AngleTranslate(axis));
 
                 Quaternion temp = Quaternion.Euler(0, angle, 0);
@@ -85,8 +84,37 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+        axis = Vector2.zero;
     }
 
+    private void OnWest()
+    {
+       axis = Vector2.down;
+    }
+
+    private void OnEast() {
+         axis = Vector2.up;
+    }
+
+    private void OnNorth()
+    {
+        axis = Vector2.right;
+    }
+
+    private void OnSouth()
+    {
+        axis = Vector2.left;
+    }
+
+    private bool OnDecline()
+    {
+        return false;
+    }
+
+    private bool OnConfirm()
+    {
+        return true;
+    }
 
 
     internal bool FoundWall()
