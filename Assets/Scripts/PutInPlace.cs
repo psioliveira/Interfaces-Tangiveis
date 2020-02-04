@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class PutInPlace : MonoBehaviour
 {
-    public GameObject inPlace;
     public BookQueue queue;
 
+    private void Start()
+    {
+        queue = GameObject.FindGameObjectWithTag("Book_Queue").GetComponent<BookQueue>();
+    }
 
     void OnTriggerEnter(Collider col)
     {
         if(col.tag == "Player")
         {
-            this.gameObject.SetActive(false);
             queue.BookAdd();
-            inPlace.SetActive(true);
         }
     }
 }
