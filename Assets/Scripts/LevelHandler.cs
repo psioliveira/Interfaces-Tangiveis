@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelHandler : MonoBehaviour
 {
@@ -28,28 +29,33 @@ public class LevelHandler : MonoBehaviour
     // state = false = random;
     bool state = false;
 
-    internal void SetUpRandom()
+    public void SetUpRandom()
     {
         state = false;
         CreateLevel();
         text.Message("Ajuda-me a arrumar estes livros todos. Agarra em todos os livros, depois põe na estante.");
     }
 
-    internal void SetUpSequence()
+    public void SetUpSequence()
     {
         state = true;
         CreateLevelOrder();
         text.Message("Ajuda-me a arrumar estes livros todos. Agarra em todos os livros, depois põe na estante.");
     }
 
-    internal void CreateLevel()
+    public void StartLevel()
+    {
+        SceneManager.LoadScene("Templo_Level1");
+    }
+
+    private void CreateLevel()
     {
         levelList = questions.GiveLevel();
         int value = Mathf.FloorToInt(Random.Range(0, levelList.Count - 1));
         levelCreator.GenerateLevel(level.GiveLevel(value));
     }
 
-    internal bool CreateLevelOrder()
+    public bool CreateLevelOrder()
     {
         levelList = questions.GiveLevel();
 
@@ -62,7 +68,7 @@ public class LevelHandler : MonoBehaviour
         return false;
     }
 
-    internal void CorrectAnswer()
+    public void CorrectAnswer()
     {
         correctCount++;
         questionCount++;
