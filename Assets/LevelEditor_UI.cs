@@ -20,7 +20,7 @@ public class LevelEditor_UI : MonoBehaviour
 
     List<Color> colorList;
 
-    List<List<LevelButton>> level;
+    static List<List<LevelButton>> level;
 
     [SerializeField]
     List<LevelEditor_Row> row;
@@ -35,10 +35,10 @@ public class LevelEditor_UI : MonoBehaviour
 
     string currentName = "Change Me";
 
-    List<Level> levelList;
+    static List<Level> levelList;
 
     [SerializeField]
-    TMP_Dropdown dropOption;
+    TMP_Dropdown dropOption, dropOption2;
 
     LevelGrid levelCreator;
 
@@ -49,7 +49,7 @@ public class LevelEditor_UI : MonoBehaviour
         {
             level.Add(rowToAdd.list);
         }
-        levelList = new List<Level>();
+        
         colorList = new List<Color>();
         colorList.Add(stateSlip);
         colorList.Add(stateGround);
@@ -61,6 +61,7 @@ public class LevelEditor_UI : MonoBehaviour
     }
     private void Start()
     {
+        
         LoadFiles();
     }
 
@@ -82,7 +83,7 @@ public class LevelEditor_UI : MonoBehaviour
         File.WriteAllText(Application.dataPath + "/numLevels.json", toSave);
 
         levelList.Add(new Level());
-
+        Debug.Log(levelList);
 
         levelIndex = levelList.Count - 1;
 
@@ -100,7 +101,9 @@ public class LevelEditor_UI : MonoBehaviour
 
     private void LoadFiles()
     {
-        if(File.Exists(Application.dataPath + "/numLevels.json"))
+        levelList = new List<Level>();
+        Debug.Log(levelList);
+        if (File.Exists(Application.dataPath + "/numLevels.json"))
         {
             string temp = File.ReadAllText(Application.dataPath + "/numLevels.json");
             LevelEditor_Spec meme = new LevelEditor_Spec();
@@ -132,6 +135,7 @@ public class LevelEditor_UI : MonoBehaviour
         currentName = levelList[levelIndex].GiveName();
         List<int> decompiled = levelList[levelIndex].GiveLevel();
         int i = 0;
+        Debug.Log(levelList.Count);
         foreach (List<LevelButton> rowtoCheck in level)
         {
             foreach (LevelButton button in rowtoCheck)
@@ -215,6 +219,7 @@ public class LevelEditor_UI : MonoBehaviour
     private void DropDownUpdate()
     {
         dropOption.ClearOptions();
+        dropOption2.ClearOptions();
 
         List<string> stringToAdd = new List<string>();
 
@@ -225,7 +230,9 @@ public class LevelEditor_UI : MonoBehaviour
 
 
         dropOption.AddOptions(stringToAdd);
+        dropOption2.AddOptions(stringToAdd);
         dropOption.value = levelIndex;
+        dropOption.value = 0;
     }
 
     public void ChangeName(string valueToChange)

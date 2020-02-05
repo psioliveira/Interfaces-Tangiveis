@@ -25,6 +25,8 @@ public class Graph_Values : ScriptableObject
     internal string Answer4;
     internal int correctAnswer;
 
+    internal int levelIndex;
+
     public Graph_Values(int lowestValue, int HighestValue, float q1, float median, float q3)
     {
         this.lowestValue = lowestValue;
@@ -45,7 +47,7 @@ public class Graph_Values : ScriptableObject
 
     public Graph_Values(int lowestValue, int HighestValue,float q1, float q3, 
         float median, string question, string answer1, string answer2, 
-        string answer3, string answer4, int correctAnswer)
+        string answer3, string answer4, int correctAnswer, int levelToChange)
     {
         this.lowestValue = lowestValue;
         this.HighestValue = HighestValue;
@@ -58,5 +60,6 @@ public class Graph_Values : ScriptableObject
         Answer3 = answer3;
         Answer4 = answer4;
         this.correctAnswer = correctAnswer;
+        levelIndex = levelToChange;
     }
 }

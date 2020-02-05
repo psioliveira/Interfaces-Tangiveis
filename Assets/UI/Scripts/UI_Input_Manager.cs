@@ -44,10 +44,11 @@ public class UI_Input_Manager : MonoBehaviour
     [SerializeField]
     private TMP_InputField lowestValueText, highestValueText, quartil_1Text, medianText, quartil_3Text, QuestionText, Answer1Text, Answer2Text, Answer3Text, Answer4Text;
     [SerializeField]
-    private TMP_Dropdown correctAnswerText;
+    private TMP_Dropdown correctAnswerText, levelSelect;
 
     private bool hasStarted = false;
 
+    private int levelIndex = 0;
 
     private void Start()
     {
@@ -55,7 +56,7 @@ public class UI_Input_Manager : MonoBehaviour
         {
             hasStarted = true;
             questionList = new List<Graph_Values>();
-            questionList.Add(new Graph_Values(lowestValue, highestValue, quartil_1, quartil_3, median, "Em relação ao grafico seleciona a mediana apresentada.", quartil_1.ToString(), quartil_3.ToString(), median.ToString(), lowestValue.ToString(), 2));
+            questionList.Add(new Graph_Values(lowestValue, highestValue, quartil_1, quartil_3, median, "Em relação ao grafico seleciona a mediana apresentada.", quartil_1.ToString(), quartil_3.ToString(), median.ToString(), lowestValue.ToString(), 2, levelIndex));
             for (int i = 0; i < 2; i++)
                 questionList.Add(new Graph_Values(lowestValue, highestValue, quartil_1, median, quartil_3));
 
@@ -66,6 +67,11 @@ public class UI_Input_Manager : MonoBehaviour
 
             currentNumber = 0;
             scrollView.UpdateData(cellData);
+
+
+            levelIndex = questionList[currentNumber].levelIndex;
+            levelSelect.value = questionList[currentNumber].levelIndex;
+
             lowestValue = questionList[currentNumber].lowestValue;
             lowestValueText.text = questionList[currentNumber].lowestValue.ToString();
 
@@ -131,7 +137,7 @@ public class UI_Input_Manager : MonoBehaviour
     public void RestartQuestions()
     {
         questionList = new List<Graph_Values>();
-        questionList.Add(new Graph_Values(lowestValue, highestValue, quartil_1, quartil_3, median, "Em relação ao grafico seleciona a mediana apresentada.", quartil_1.ToString(), quartil_3.ToString(), median.ToString(), lowestValue.ToString(), 2));
+        questionList.Add(new Graph_Values(lowestValue, highestValue, quartil_1, quartil_3, median, "Em relação ao grafico seleciona a mediana apresentada.", quartil_1.ToString(), quartil_3.ToString(), median.ToString(), lowestValue.ToString(), 2, levelIndex));
         for (int i = 0; i < 2; i++)
             questionList.Add(new Graph_Values(lowestValue, highestValue, quartil_1, median, quartil_3));
 
@@ -142,6 +148,11 @@ public class UI_Input_Manager : MonoBehaviour
 
         if(currentNumber > questionList.Count)
         currentNumber = 0;
+
+
+
+        levelIndex = questionList[currentNumber].levelIndex;
+        levelSelect.value = questionList[currentNumber].levelIndex;
 
         scrollView.UpdateData(cellData);
         lowestValue = questionList[currentNumber].lowestValue;
@@ -242,11 +253,20 @@ public class UI_Input_Manager : MonoBehaviour
         correctAnswer = answer;
     }
 
+    public void ChangeLevel(int levelToChange)
+    {
+        levelIndex = levelToChange;
+    }
+
     public void ToQuestion()
     {
-        QuestionAndAnswer.SetActive(true);
-        GraphCreator.SetActive(false);
-        QuestionAndAnswer.GetComponent<Question_Creator>().CreateQuestion(new Graph_Values(lowestValue, highestValue, quartil_1, median, quartil_3, Question, Answer1, Answer2, Answer3, Answer4, correctAnswer));
+        QuestionAndAnswer.GetComponent<Question_Creator>().CreateQuestion(new Graph_Values(lowestValue, highestValue, quartil_1, median, quartil_3, Question, Answer1, Answer2, Answer3, Answer4, correctAnswer, levelIndex));
+    }
+
+    public void ToQuestion(int index)
+    {
+        levelIndex = index;
+        QuestionAndAnswer.GetComponent<Question_Creator>().CreateQuestion(new Graph_Values(lowestValue, highestValue, quartil_1, median, quartil_3, Question, Answer1, Answer2, Answer3, Answer4, correctAnswer, levelIndex));
     }
 
     public void MakeQuestion()
@@ -256,13 +276,27 @@ public class UI_Input_Manager : MonoBehaviour
         QuestionAndAnswer.GetComponent<Question_Creator>().CreateQuestion(questionList[currentNumber]);
     }
 
+    public void Save()
+    {
+        questionList[currentNumber] = new Graph_Values(lowestValue, highestValue, quartil_1, quartil_3, median, Question, Answer1, Answer2, Answer3, Answer4, correctAnswer, levelIndex);
+    }
+
+    public void UpdateDropDown()
+    {
+        levelSelect.value = questionList[currentNumber].levelIndex;
+    }
+
 
     public void ChangeQuestion(int value)
     {
         UpdateAnim.SetTrigger("Go");
-        Debug.Log(value);
-        questionList[currentNumber] = new Graph_Values(lowestValue, highestValue, quartil_1, quartil_3 , median, Question, Answer1, Answer2, Answer3, Answer4, correctAnswer);
+        questionList[currentNumber] = new Graph_Values(lowestValue, highestValue, quartil_1, quartil_3 , median, Question, Answer1, Answer2, Answer3, Answer4, correctAnswer, levelIndex);
         currentNumber = value;
+
+
+        levelIndex = questionList[currentNumber].levelIndex;
+        levelSelect.value = questionList[currentNumber].levelIndex;
+
         lowestValue = questionList[currentNumber].lowestValue;
         lowestValueText.text = questionList[currentNumber].lowestValue.ToString();
 

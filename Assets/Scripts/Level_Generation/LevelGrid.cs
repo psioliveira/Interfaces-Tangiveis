@@ -14,7 +14,7 @@ public class LevelGrid : MonoBehaviour
     List<GameObject> assetsToSpawn;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         children = new List<List<Transform>>();
         spawnedAssets = new List<GameObject>();
@@ -48,9 +48,13 @@ public class LevelGrid : MonoBehaviour
 
     private void ClearLevel()
     {
-        foreach(GameObject toDelete in spawnedAssets)
+        if(spawnedAssets.Count > 0)
         {
-            Destroy(toDelete);
+            foreach (GameObject toDelete in spawnedAssets)
+            {
+                Destroy(toDelete);
+            }
         }
+
     }
 }

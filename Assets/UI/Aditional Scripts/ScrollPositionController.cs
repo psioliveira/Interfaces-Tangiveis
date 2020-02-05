@@ -215,7 +215,6 @@ namespace UnityEngine.UI.Extensions
 					// Auto scrolling is completed, get the item's index and firing OnItemSelected event.
 					if(OnItemSelected != null)
 					{
-                        Debug.Log("IM DOING THIS " + Mathf.RoundToInt(GetLoopPosition(autoScrollPosition, dataCount)));
 						OnItemSelected.Invoke(Mathf.RoundToInt(GetLoopPosition(autoScrollPosition, dataCount)));
 					}
 				}
