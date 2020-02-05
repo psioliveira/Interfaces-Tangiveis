@@ -35,7 +35,7 @@ public class LevelEditor_UI : MonoBehaviour
 
     string currentName = "Change Me";
 
-    static List<Level> levelList;
+    List<Level> levelList;
 
     [SerializeField]
     TMP_Dropdown dropOption, dropOption2;
@@ -102,7 +102,6 @@ public class LevelEditor_UI : MonoBehaviour
     private void LoadFiles()
     {
         levelList = new List<Level>();
-        Debug.Log(levelList);
         if (File.Exists(Application.dataPath + "/numLevels.json"))
         {
             string temp = File.ReadAllText(Application.dataPath + "/numLevels.json");
@@ -135,11 +134,14 @@ public class LevelEditor_UI : MonoBehaviour
         currentName = levelList[levelIndex].GiveName();
         List<int> decompiled = levelList[levelIndex].GiveLevel();
         int i = 0;
-        Debug.Log(levelList.Count);
         foreach (List<LevelButton> rowtoCheck in level)
         {
             foreach (LevelButton button in rowtoCheck)
             {
+                if(button.colorList == null)
+                {
+                    button.StartMe();
+                }
                 button.ChangeState(decompiled[i]);
                 i++;
             }

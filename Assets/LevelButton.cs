@@ -10,19 +10,19 @@ public class LevelButton : MonoBehaviour
     /// </summary>
     int state = 0;
     Image me;
-    List<Color> colorList;
+    internal List<Color> colorList;
 
 
     LevelEditor_UI ui;
     TextMeshProUGUI myText;
 
-    private void Start()
+    internal void StartMe()
     {
         ui = GetComponentInParent<LevelEditor_Row>().GiveUI();
         myText = GetComponentInChildren<TextMeshProUGUI>();
         me = GetComponent<Image>();
+        colorList = new List<Color>();
         colorList = ui.GiveColor();
-        ColorUpdate();
     }
 
 

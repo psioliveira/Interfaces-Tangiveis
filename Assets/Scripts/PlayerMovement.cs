@@ -24,12 +24,19 @@ public class PlayerMovement : MonoBehaviour
     private float ofsetWallGizmoY = 0.1f;
 
     [SerializeField]
+    private GameObject question;
+
+    [SerializeField]
     private string layer;
     public AngleConverter angleConv;
     public CharacterController controller;
     [SerializeField]
     private Vector3 radGround = new Vector3(1, 1, 1);
     private Vector2 axis;
+
+    private bool interactable = false;
+
+    private bool paused = false;
 
     void Start()
     {
@@ -39,22 +46,32 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+
+    internal void CanInteract(bool value)
+    {
+        interactable = value;
+    }
+
     void Update()
     {
-        if (FoundWall())
+        if (!paused)
         {
-            moveDirection = Vector3.zero;
+            if (FoundWall())
+            {
+                moveDirection = Vector3.zero;
+            }
+
+            UpdateKeyRotation();
+            if (!FoundWall())
+            {
+                moveDirection = Vector3.forward;
+                moveDirection = transform.TransformDirection(moveDirection);
+                moveDirection *= speed;
+            }
+            moveDirection.y -= gravity * Time.deltaTime;
+            controller.Move(moveDirection * Time.deltaTime);
         }
 
-        UpdateKeyRotation();
-        if (!FoundWall())
-        {
-            moveDirection = Vector3.forward;
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= speed;
-        }
-        moveDirection.y -= gravity * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);
     }
 
 
@@ -111,9 +128,13 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    private bool OnConfirm()
+    private void OnConfirm()
     {
-        return true;
+        if (interactable)
+        {
+            paused = true;
+
+        }
     }
 
 

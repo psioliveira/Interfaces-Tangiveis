@@ -245,7 +245,6 @@ public class Graph_Manager : MonoBehaviour
     /// <param name="type"></param>
     private void CreateGraphFiller(float interval, float start, float end, int inquert)
     {
-        Debug.Log(end);
         bool firstrun = true;
         for (float i = start; i < end;)
         {

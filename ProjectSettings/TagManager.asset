@@ -13,6 +13,7 @@ TagManager:
   - floor
   - safe
   - Level_Spawner
+  - Book_Handler
   layers:
   - Default
   - TransparentFX
