@@ -161,6 +161,11 @@ public class LevelEditor_UI : MonoBehaviour
         return decompiledList;
     }
 
+    internal List<int> GiveLevel(int value)
+    {
+        return levelList[value].GiveLevel();
+    }
+
     public void SaveLevel()
     {
         levelList[levelIndex] = new Level(DecompileLevel(level), currentName);

@@ -333,5 +333,9 @@ public class UI_Input_Manager : MonoBehaviour
         //currentGraphManager.CreateGraph(questionList[currentNumber]);
     }
 
+    internal List<Graph_Values> GiveLevel()
+    {
+        return questionList;
+    }
 
 }
