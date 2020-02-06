@@ -73,6 +73,11 @@ public class LevelHandler : MonoBehaviour
         int value = Mathf.FloorToInt(Random.Range(0, levelList.Count - 1));
         levelCreator.GenerateLevel(level.GiveLevel(value));
         anim3.CreateQuestion(levelList[value]);
+        GameObject player2 = Instantiate(player, spawn);
+        player2.transform.position = spawn.position;
+        Destroy(player);
+        player = player2;
+        player.GetComponent<PlayerMovement>().paused = false;
 
     }
 
@@ -86,6 +91,11 @@ public class LevelHandler : MonoBehaviour
 
             anim3.CreateQuestion(levelList[currentValue]);
             currentValue++;
+            GameObject player2 = Instantiate(player, spawn);
+            player2.transform.position = spawn.position;
+            Destroy(player);
+            player = player2;
+            player.GetComponent<PlayerMovement>().paused = false;
             return true;
         }
         return false;
@@ -123,14 +133,9 @@ public class LevelHandler : MonoBehaviour
     public void Restart()
     {
         anim1.Restart();
+        anim2.gameObject.SetActive(true);
         anim2.Restart();
         anim3.Restart();
-
-        GameObject player2 = Instantiate(player, spawn);
-        player2.transform.position = spawn.position;
-        Destroy(player);
-        player = player2;
-        player.GetComponent<PlayerMovement>().paused = false;
     }
 
 }

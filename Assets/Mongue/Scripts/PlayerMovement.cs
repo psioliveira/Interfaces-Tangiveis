@@ -43,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Question_Creator anim;
 
+    [SerializeField]
+    LevelHandler handler;
 
 
     private bool interactable = false;
@@ -143,9 +145,10 @@ public class PlayerMovement : MonoBehaviour
         axis = Vector2.left;
     }
 
-    private bool OnDecline()
+    private void OnDecline()
     {
-        return false;
+        handler.Restart();
+        paused = true;
     }
 
     private void OnConfirm()
@@ -154,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Double Yes");
             paused = true;
+            anim.gameObject.SetActive(true);
             anim.Go();
         }
     }
