@@ -17,8 +17,11 @@ public class BookCounter : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI countText, maxText;
 
+    Queue<GameObject> queue;
+
     private void Start()
     {
+        queue = new Queue<GameObject>();
         maxText.text = maxBooks.ToString();
         countText.text = currentCount.ToString();
     }
@@ -26,7 +29,7 @@ public class BookCounter : MonoBehaviour
     internal void MoreBooks()
     {
         maxBooks++;
-        Instantiate(prefab, maxCount);
+        queue.Enqueue(Instantiate(prefab, maxCount));
         maxText.text = maxBooks.ToString();
         countText.text = currentCount.ToString();
     }
@@ -34,9 +37,17 @@ public class BookCounter : MonoBehaviour
     internal void CatchBook()
     {
         currentCount++;
-        Instantiate(prefab, count);
+        queue.Enqueue(Instantiate(prefab, count));
         countText.text = currentCount.ToString();
         maxText.text = maxBooks.ToString();
+    }
+
+    internal void RemoveBook()
+    {
+        maxBooks--;
+        Destroy(queue.Dequeue());
+        maxText.text = maxBooks.ToString();
+        countText.text = currentCount.ToString();
     }
 
     internal bool Check()

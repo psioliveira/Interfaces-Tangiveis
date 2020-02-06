@@ -59,7 +59,7 @@ public class LevelHandler : MonoBehaviour
     {
         levelList = questions.GiveLevel();
 
-        if (currentValue >= levelList.Count)
+        if (currentValue < levelList.Count)
         {
             levelCreator.GenerateLevel(level.GiveLevel(currentValue));
             currentValue++;

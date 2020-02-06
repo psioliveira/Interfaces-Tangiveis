@@ -8,6 +8,12 @@ public class Shelf : MonoBehaviour
     [SerializeField]
     GameObject buttonUI;
 
+    private void Start()
+    {
+        book = GameObject.FindGameObjectWithTag("Book_Handler").GetComponent<BookCounter>();
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")

@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool interactable = false;
 
-    private bool paused = false;
+    public bool paused = true;
 
     void Start()
     {

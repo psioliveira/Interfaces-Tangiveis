@@ -4,18 +4,30 @@ using UnityEngine;
 
 public class PutInPlace : MonoBehaviour
 {
-    public BookQueue queue;
+    private BookCounter queue;
+    private bool caught = false;
 
     private void Start()
     {
-        queue = GameObject.FindGameObjectWithTag("Book_Queue").GetComponent<BookQueue>();
+        queue = GameObject.FindGameObjectWithTag("Book_Handler").GetComponent<BookCounter>();
+        queue.MoreBooks();
     }
 
     void OnTriggerEnter(Collider col)
     {
         if(col.tag == "Player")
         {
-            queue.BookAdd();
+            caught = true;
+            queue.CatchBook();
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (!caught)
+        {
+            queue.RemoveBook();
         }
     }
 }
