@@ -12370,6 +12370,11 @@ PrefabInstance:
       propertyPath: radFloor
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8976583611128077569, guid: 45bf6e4935c705f479aa7990c5b2a582,
+        type: 3}
+      propertyPath: handler
+      value: 
+      objectReference: {fileID: 290172761}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45bf6e4935c705f479aa7990c5b2a582, type: 3}
 --- !u!1 &512147150
