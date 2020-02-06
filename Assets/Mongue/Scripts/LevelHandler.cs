@@ -87,7 +87,7 @@ public class LevelHandler : MonoBehaviour
 
         if (currentValue < levelList.Count)
         {
-            levelCreator.GenerateLevel(level.GiveLevel(currentValue));
+            levelCreator.GenerateLevel(level.GiveLevel(levelList[currentValue].levelIndex));
 
             anim3.CreateQuestion(levelList[currentValue]);
             currentValue++;
