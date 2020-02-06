@@ -20,6 +20,7 @@ public class Shelf : MonoBehaviour
         {
             if (book.Check())
             {
+                Debug.Log("Yes");
                 other.GetComponent<PlayerMovement>().CanInteract(true);
                 buttonUI.SetActive(true);
             }

@@ -51,4 +51,13 @@ public class AnimationMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void Restart()
+    {
+        me.ResetTrigger("Mode");
+        me.ResetTrigger("Start");
+        me.ResetTrigger("Menu");
+        me.SetTrigger("Start");
+        edit.SetTrigger("Restart");
+    }
+
 }

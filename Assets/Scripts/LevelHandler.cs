@@ -11,6 +11,9 @@ public class LevelHandler : MonoBehaviour
     UI_Input_Manager questions;
 
     [SerializeField]
+    GameObject player;
+
+    [SerializeField]
     LevelEditor_UI level;
 
     List<Graph_Values> levelList;
@@ -26,12 +29,25 @@ public class LevelHandler : MonoBehaviour
     int correctCount = 0;
     int questionCount = 0;
 
+
+    [SerializeField]
+    Animation_Editors anim1;
+
+    [SerializeField]
+    AnimationMenu anim2;
+
+    [SerializeField]
+    Question_Creator anim3;
+
+
     // state = false = random;
     bool state = false;
 
     public void SetUpRandom()
     {
         state = false;
+        currentValue = 0;
+        correctCount = 0;
         CreateLevel();
         text.Message("Ajuda-me a arrumar estes livros todos. Agarra em todos os livros, depois põe na estante.");
     }
@@ -39,8 +55,11 @@ public class LevelHandler : MonoBehaviour
     public void SetUpSequence()
     {
         state = true;
+        currentValue = 0;
+        correctCount = 0;
         CreateLevelOrder();
         text.Message("Ajuda-me a arrumar estes livros todos. Agarra em todos os livros, depois põe na estante.");
+
     }
 
     public void StartLevel()
@@ -53,6 +72,8 @@ public class LevelHandler : MonoBehaviour
         levelList = questions.GiveLevel();
         int value = Mathf.FloorToInt(Random.Range(0, levelList.Count - 1));
         levelCreator.GenerateLevel(level.GiveLevel(value));
+        anim3.CreateQuestion(levelList[value]);
+
     }
 
     public bool CreateLevelOrder()
@@ -63,6 +84,7 @@ public class LevelHandler : MonoBehaviour
         {
             levelCreator.GenerateLevel(level.GiveLevel(currentValue));
             currentValue++;
+            anim3.CreateQuestion(levelList[currentValue]);
             return true;
         }
         return false;
@@ -73,14 +95,41 @@ public class LevelHandler : MonoBehaviour
         correctCount++;
         questionCount++;
 
-        if (!state)
+        if (state)
         {
             CreateLevel();
+            text.Message("Boa! Acertates " + correctCount + " respostas de " + questionCount + ".");
+
+            GameObject player2 = Instantiate(player, spawn);
+            player2.transform.position = spawn.position;
+            Destroy(player);
+            player = player2;
+            player.GetComponent<PlayerMovement>().paused = false;
         }
         else
-            if (!CreateLevelOrder())
+            if (CreateLevelOrder())
         {
             text.Message("Boa! Acertates " + correctCount + " respostas de " + questionCount + ".");
+
+            GameObject player2 = Instantiate(player, spawn);
+            player2.transform.position = spawn.position;
+            Destroy(player);
+            player = player2;
+            player.GetComponent<PlayerMovement>().paused = false;
         }
     }
+
+    public void Restart()
+    {
+        anim1.Restart();
+        anim2.Restart();
+        anim3.Restart();
+
+        GameObject player2 = Instantiate(player, spawn);
+        player2.transform.position = spawn.position;
+        Destroy(player);
+        player = player2;
+        player.GetComponent<PlayerMovement>().paused = false;
+    }
+
 }

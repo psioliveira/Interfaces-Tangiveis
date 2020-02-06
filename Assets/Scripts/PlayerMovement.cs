@@ -40,6 +40,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float radFloor;
 
+    [SerializeField]
+    Question_Creator anim;
+
 
 
     private bool interactable = false;
@@ -149,7 +152,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (interactable)
         {
+            Debug.Log("Double Yes");
             paused = true;
+            anim.Go();
         }
     }
 

@@ -43,5 +43,15 @@ public class Animation_Editors : MonoBehaviour
         me.SetTrigger("Level");
     }
 
+    public void Restart()
+    {
+        me.ResetTrigger("Start");
+        me.ResetTrigger("Question");
+        me.ResetTrigger("Exit");
+        me.ResetTrigger("Level");
+        me.SetTrigger("Restart");
+
+    }
+
 
 }
