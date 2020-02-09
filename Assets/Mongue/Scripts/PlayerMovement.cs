@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnConfirm()
     {
-        if (interactible)
+        if (interactable)
         {
             paused = true;
             anim.gameObject.SetActive(true);
