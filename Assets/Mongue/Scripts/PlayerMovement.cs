@@ -150,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
         axis = Vector2.zero;
     }
 
-    private bool OnDecline()
+    private void OnDecline()
     {
        handler.Restart();
        paused = true;
