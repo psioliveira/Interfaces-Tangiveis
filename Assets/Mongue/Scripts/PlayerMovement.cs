@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
@@ -145,21 +145,27 @@ public class PlayerMovement : MonoBehaviour
         axis = Vector2.left;
     }
 
-    private void OnDecline()
+    private void OnMoveReleased()
     {
-        handler.Restart();
-        paused = true;
+        axis = Vector2.zero;
+    }
+
+    private bool OnDecline()
+    {
+       handler.Restart();
+       paused = true;
     }
 
     private void OnConfirm()
     {
-        if (interactable)
+        if (interactible)
         {
-            Debug.Log("Double Yes");
             paused = true;
             anim.gameObject.SetActive(true);
             anim.Go();
+
         }
+
     }
 
 
