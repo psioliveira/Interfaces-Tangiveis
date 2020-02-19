@@ -239,7 +239,6 @@ public class LevelEditor_UI : MonoBehaviour
         dropOption.AddOptions(stringToAdd);
         dropOption2.AddOptions(stringToAdd);
         dropOption.value = levelIndex;
-        dropOption.value = 0;
     }
 
     public void ChangeName(string valueToChange)
