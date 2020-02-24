@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LevelHandler : MonoBehaviour
 {
@@ -43,10 +45,28 @@ public class LevelHandler : MonoBehaviour
     // state = false = random;
     bool state = false;
 
+    int maxNum = 1;
+    int currentNum = 0;
+
+    [SerializeField]
+    TMP_InputField input;
+
+    [SerializeField]
+    TextMeshProUGUI feedback;
+
+    [SerializeField]
+    TextMeshProUGUI counter;
+
+    private void Start()
+    {
+        CounterUpdate();
+    }
+
     public void SetUpRandom()
     {
         state = false;
         currentValue = 0;
+        currentNum = 0;
         correctCount = 0;
         CreateLevel();
         text.Message("Ajuda-me a arrumar estes livros todos. Agarra em todos os livros, depois põe na estante.");
@@ -62,6 +82,30 @@ public class LevelHandler : MonoBehaviour
 
     }
 
+    public void ChangingMaxRan(string value)
+    {
+        maxNum = Convert.ToInt32(value);
+        if(maxNum == 0)
+        {
+            maxNum = 1;
+            input.text = "";
+            feedback.text = "Por favor insira valores maiores de 0";
+        }
+        else
+        {
+            input.text = "";
+            feedback.text = "";
+
+        }
+        CounterUpdate();
+    }
+
+    private void CounterUpdate()
+    {
+        counter.text = "- "+ maxNum.ToString() + " Perguntas";
+    }
+
+
     public void StartLevel()
     {
         SceneManager.LoadScene("Templo_Level1");
@@ -69,15 +113,28 @@ public class LevelHandler : MonoBehaviour
 
     private void CreateLevel()
     {
-        levelList = questions.GiveLevel();
-        int value = Mathf.FloorToInt(Random.Range(0, levelList.Count - 1));
-        levelCreator.GenerateLevel(level.GiveLevel(value));
-        anim3.CreateQuestion(levelList[value]);
-        GameObject player2 = Instantiate(player, spawn);
-        player2.transform.position = spawn.position;
-        Destroy(player);
-        player = player2;
-        player.GetComponent<PlayerMovement>().paused = false;
+        if(currentNum < maxNum)
+        {
+            levelList = new List<Graph_Values>();
+            levelList = questions.GiveLevel();
+            int value = Mathf.FloorToInt(UnityEngine.Random.Range(0, levelList.Count - 1));
+
+            levelCreator.GenerateLevel(level.GiveLevel(levelList[value].levelIndex));
+
+            anim3.CreateQuestion(levelList[currentValue]);
+            currentValue++;
+            GameObject player2 = Instantiate(player, spawn);
+            player2.transform.position = spawn.position;
+            Destroy(player);
+            player = player2;
+            player.GetComponent<PlayerMovement>().paused = false;
+            currentNum++;
+        }
+        else
+        {
+            anim2.gameObject.SetActive(true);
+            anim2.End("Acertates " + correctCount + " respostas de " + questionCount + ".");
+        }
 
     }
 
@@ -87,6 +144,7 @@ public class LevelHandler : MonoBehaviour
 
         if (currentValue < levelList.Count)
         {
+
             levelCreator.GenerateLevel(level.GiveLevel(levelList[currentValue].levelIndex));
 
             anim3.CreateQuestion(levelList[currentValue]);
@@ -98,6 +156,8 @@ public class LevelHandler : MonoBehaviour
             player.GetComponent<PlayerMovement>().paused = false;
             return true;
         }
+        anim2.gameObject.SetActive(true);
+        anim2.End("Acertates " + correctCount + " respostas de " + questionCount + ".");
         return false;
     }
 
@@ -106,7 +166,7 @@ public class LevelHandler : MonoBehaviour
         correctCount++;
         questionCount++;
 
-        if (state)
+        if (!state)
         {
             CreateLevel();
             text.Message("Boa! Acertates " + correctCount + " respostas de " + questionCount + ".");

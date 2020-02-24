@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Mongue/Scenes/SampleScene.unity
-    guid: c0e6d21589ef83a429ad0f4dc8a882c0
   - enabled: 1
     path: Assets/Mongue/Scenes/Monge_Scene.unity
     guid: 90db1ea54c834664bb9737459eb2e6d2

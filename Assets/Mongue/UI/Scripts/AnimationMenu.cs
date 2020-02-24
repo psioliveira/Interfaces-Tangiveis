@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class AnimationMenu : MonoBehaviour
 {
@@ -9,16 +10,33 @@ public class AnimationMenu : MonoBehaviour
     Animator me;
     [SerializeField]
     Animator edit;
+
+    [SerializeField]
+    TextMeshProUGUI message;
+
+
     void Start()
     {
         me = gameObject.GetComponent<Animator>();
     }
+
+    public void End(string value)
+    {
+        me.ResetTrigger("Start");
+        me.ResetTrigger("Menu");
+        me.ResetTrigger("Mode");
+        me.ResetTrigger("AfterEnd");
+        me.SetTrigger("End");
+        message.text = value;
+    }
+
 
 
     public void ModeTrigger()
     {
         me.ResetTrigger("Menu");
         me.ResetTrigger("Start");
+        me.ResetTrigger("AfterEnd");
         me.SetTrigger("Mode");
     }
 
@@ -26,6 +44,7 @@ public class AnimationMenu : MonoBehaviour
     {
         me.ResetTrigger("Menu");
         me.ResetTrigger("Mode");
+        me.ResetTrigger("AfterEnd");
         me.SetTrigger("Start");
     }
 
@@ -33,6 +52,7 @@ public class AnimationMenu : MonoBehaviour
     {
         me.ResetTrigger("Mode");
         me.ResetTrigger("Start");
+        me.ResetTrigger("AfterEnd");
         me.SetTrigger("Menu");
     }
 

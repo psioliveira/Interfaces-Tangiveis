@@ -13,6 +13,9 @@ public class Question_Creator : MonoBehaviour
     GameObject GraphCreator;
 
     [SerializeField]
+    GameObject uiButton;
+
+    [SerializeField]
     Animator me;
 
     [SerializeField]
@@ -98,6 +101,7 @@ public class Question_Creator : MonoBehaviour
         me.ResetTrigger("Restart");
         me.ResetTrigger("Correct");
         me.SetTrigger("Go");
+        uiButton.SetActive(false);
     }
 
     public void YouDidIt()

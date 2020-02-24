@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
                 moveDirection = Vector3.forward;
                 moveDirection = transform.TransformDirection(moveDirection);
                 moveDirection *= speed;
+                Debug.Log("I have stopped");
             }
        
             moveDirection.y -= gravity * Time.deltaTime;
