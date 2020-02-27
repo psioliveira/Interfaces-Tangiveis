@@ -190,6 +190,34 @@ public class LevelHandler : MonoBehaviour
         }
     }
 
+    public void WrongAnswer()
+    {
+        questionCount++;
+
+        if (!state)
+        {
+            CreateLevel();
+            text.Message("Boa! Acertates " + correctCount + " respostas de " + questionCount + ".");
+
+            GameObject player2 = Instantiate(player, spawn);
+            player2.transform.position = spawn.position;
+            Destroy(player);
+            player = player2;
+            player.GetComponent<PlayerMovement>().paused = false;
+        }
+        else
+            if (CreateLevelOrder())
+        {
+            text.Message("Boa! Acertates " + correctCount + " respostas de " + questionCount + ".");
+
+            GameObject player2 = Instantiate(player, spawn);
+            player2.transform.position = spawn.position;
+            Destroy(player);
+            player = player2;
+            player.GetComponent<PlayerMovement>().paused = false;
+        }
+    }
+
     public void Restart()
     {
         anim1.Restart();

@@ -52,7 +52,6 @@ public class Question_Creator : MonoBehaviour
     internal void CreateQuestion(Graph_Values graphToCreate)
     {
         GraphCreator.GetComponent<Graph_Manager>().CreateGraph(graphToCreate);
-        Debug.Log(graphToCreate.Question);
         question.text = graphToCreate.Question;
 
         answer1.text = "A) " + graphToCreate.Answer1;
@@ -82,6 +81,7 @@ public class Question_Creator : MonoBehaviour
 
     public void CheckAnswer(int test)
     {
+        Debug.Log("HELP ME");
         if(correctAnswer == test)
         {
             YouDidIt();
@@ -143,7 +143,7 @@ public class Question_Creator : MonoBehaviour
         me.ResetTrigger("Wrong");
         me.ResetTrigger("Restart");
         me.SetTrigger("HideBad");
-        myHandler.CorrectAnswer();
+        myHandler.WrongAnswer();
     }
 
     public void Restart()
