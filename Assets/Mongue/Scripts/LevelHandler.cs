@@ -132,6 +132,8 @@ public class LevelHandler : MonoBehaviour
         }
         else
         {
+            correctCount = 0;
+            questionCount = 0;
             anim2.gameObject.SetActive(true);
             anim2.End("Acertates " + correctCount + " respostas de " + questionCount + ".");
         }
@@ -156,6 +158,8 @@ public class LevelHandler : MonoBehaviour
             player.GetComponent<PlayerMovement>().paused = false;
             return true;
         }
+        correctCount = 0;
+        questionCount = 0;
         anim2.gameObject.SetActive(true);
         anim2.End("Acertates " + correctCount + " respostas de " + questionCount + ".");
         return false;
@@ -220,6 +224,8 @@ public class LevelHandler : MonoBehaviour
 
     public void Restart()
     {
+        correctCount = 0;
+        questionCount = 0;
         anim1.Restart();
         anim2.gameObject.SetActive(true);
         anim2.Restart();

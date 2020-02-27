@@ -42,6 +42,9 @@ public class Question_Creator : MonoBehaviour
     [SerializeField]
     LevelHandler myHandler;
 
+    [SerializeField]
+    GameObject wrong, right;
+
 
 
     private void Start()
@@ -79,6 +82,18 @@ public class Question_Creator : MonoBehaviour
 
     }
 
+    private void RemoveButtons()
+    {
+        wrong.SetActive(false);
+        right.SetActive(false);
+    }
+
+    private void ActivateButtons()
+    {
+        wrong.SetActive(true);
+        right.SetActive(true);
+    }
+
     public void CheckAnswer(int test)
     {
         Debug.Log("HELP ME");
@@ -112,6 +127,7 @@ public class Question_Creator : MonoBehaviour
         me.ResetTrigger("HideBad");
         me.ResetTrigger("Restart");
         me.SetTrigger("Correct");
+        ActivateButtons();
     }
 
     public void YouDidItConfirm()
@@ -123,6 +139,7 @@ public class Question_Creator : MonoBehaviour
         me.ResetTrigger("Restart");
         me.SetTrigger("HideGood");
         myHandler.CorrectAnswer();
+        RemoveButtons();
     }
 
     public void YouWrong()
@@ -133,6 +150,7 @@ public class Question_Creator : MonoBehaviour
         me.ResetTrigger("HideBad");
         me.ResetTrigger("Restart");
         me.SetTrigger("Wrong");
+        ActivateButtons();
     }
 
     public void YouWrongConfirm()
@@ -144,6 +162,7 @@ public class Question_Creator : MonoBehaviour
         me.ResetTrigger("Restart");
         me.SetTrigger("HideBad");
         myHandler.WrongAnswer();
+        RemoveButtons();
     }
 
     public void Restart()
