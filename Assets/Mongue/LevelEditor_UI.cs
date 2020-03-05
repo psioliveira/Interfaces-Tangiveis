@@ -25,6 +25,11 @@ public class LevelEditor_UI : MonoBehaviour
     [SerializeField]
     List<LevelEditor_Row> row;
 
+    int[] levelBase1 = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+    int[] levelBase2 = { 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 3, 2, 0, 0, 0, 0, 0, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 };
+
+    int[] levelBase3 = { 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
     [SerializeField]
     TMP_InputField me;
@@ -99,6 +104,35 @@ public class LevelEditor_UI : MonoBehaviour
         DropDownUpdate();
     }
 
+    public void AddNewLevel(int[] value, string name)
+    {
+        levelCount++;
+
+        LevelEditor_Spec temp = new LevelEditor_Spec();
+        temp.levelCount = levelCount;
+        string toSave = JsonUtility.ToJson(temp);
+
+        File.WriteAllText(Application.dataPath + "/numLevels.json", toSave);
+
+        levelList.Add(new Level());
+        Debug.Log(levelList);
+
+        levelIndex = levelList.Count - 1;
+
+        Level_Scriptable temp1 = new Level_Scriptable();
+        temp1.myName = levelList[levelIndex].GiveName();
+        temp1.level = value;
+        temp1.message = levelList[levelIndex].GiveMessage();
+        toSave = JsonUtility.ToJson(temp1);
+        Debug.Log(toSave);
+
+        File.WriteAllText(Application.dataPath + "/Level" + levelIndex.ToString() + ".json", toSave);
+        RefreshToCurrentIndex();
+        DropDownUpdate();
+    }
+
+
+
     private void LoadFiles()
     {
         levelList = new List<Level>();
@@ -125,7 +159,9 @@ public class LevelEditor_UI : MonoBehaviour
         }
         else
         {
-            AddNewLevel();
+            AddNewLevel(levelBase1, "Nivel 1");
+            AddNewLevel(levelBase2, "Nivel 2");
+            AddNewLevel(levelBase3, "Nivel 3");
         }
     }
 

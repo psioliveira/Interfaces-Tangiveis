@@ -12,6 +12,7 @@ public class Level : ScriptableObject
 
     string message = "Não tenho nenhuma idea de o que dizer!";
 
+
     public Level()
     {
         level = new List<int>();

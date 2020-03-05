@@ -21,6 +21,9 @@ public class Question_Creator : MonoBehaviour
     [SerializeField]
     GameObject QuestionAndAnswer;
 
+    [SerializeField]
+    BookCounter books;
+
 
     private int correctAnswer;
 
@@ -128,6 +131,7 @@ public class Question_Creator : MonoBehaviour
         me.ResetTrigger("Restart");
         me.SetTrigger("Correct");
         ActivateButtons();
+        books.ResetBook();
     }
 
     public void YouDidItConfirm()
@@ -151,6 +155,7 @@ public class Question_Creator : MonoBehaviour
         me.ResetTrigger("Restart");
         me.SetTrigger("Wrong");
         ActivateButtons();
+        books.ResetBook();
     }
 
     public void YouWrongConfirm()

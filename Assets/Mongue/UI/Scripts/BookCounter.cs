@@ -50,6 +50,19 @@ public class BookCounter : MonoBehaviour
         countText.text = currentCount.ToString();
     }
 
+    internal void ResetBook()
+    {
+        maxBooks = 0;
+        currentCount = 0;
+        maxText.text = maxBooks.ToString();
+        countText.text = currentCount.ToString();
+        foreach (GameObject temp in queue)
+        {
+            Destroy(temp);
+        }
+        queue.Clear();
+    }
+
     internal bool Check()
     {
         if(currentCount == maxBooks)
